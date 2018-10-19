@@ -68,7 +68,7 @@ class Client extends BaseClient
      */
     public function download()
     {
-        return $this->httpPost('wxa/get_category');
+        return $this->httpPost('cgi-bin/wxopen/qrcodejumpdownload');
     }
 
     /**
