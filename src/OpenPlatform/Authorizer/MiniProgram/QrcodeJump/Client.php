@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace EasyWeChat\OpenPlatform\Authorizer\MiniProgram\QrCodeJump;
+namespace EasyWeChat\OpenPlatform\Authorizer\MiniProgram\QrcodeJump;
 
 use EasyWeChat\Kernel\BaseClient;
 

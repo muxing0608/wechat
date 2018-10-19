@@ -22,6 +22,7 @@ use EasyWeChat\OpenPlatform\Authorizer\Aggregate\AggregateServiceProvider;
  * @property \EasyWeChat\OpenPlatform\Authorizer\Aggregate\Account\Client  $account
  * @property \EasyWeChat\OpenPlatform\Authorizer\MiniProgram\Code\Client   $code
  * @property \EasyWeChat\OpenPlatform\Authorizer\MiniProgram\Domain\Client $domain
+ * @property \EasyWeChat\OpenPlatform\Authorizer\MiniProgram\QrcodeJump\Client $qrcodeJump
  * @property \EasyWeChat\OpenPlatform\Authorizer\MiniProgram\Tester\Client $tester
  */
 class Application extends MiniProgram
@@ -36,12 +37,13 @@ class Application extends MiniProgram
     {
         parent::__construct($config, $prepends);
 
-        $providers = [
+        $providers = array(
             AggregateServiceProvider::class,
             Code\ServiceProvider::class,
             Domain\ServiceProvider::class,
+            QrcodeJump\ServiceProvider::class,
             Tester\ServiceProvider::class,
-        ];
+        );
 
         foreach ($providers as $provider) {
             $this->register(new $provider());
