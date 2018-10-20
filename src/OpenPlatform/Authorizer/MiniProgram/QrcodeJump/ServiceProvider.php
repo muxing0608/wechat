@@ -18,7 +18,7 @@ class ServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $app)
     {
-        $app['qr_code_jump'] = function ($app) {
+        $app['qrcode_jump'] = function ($app) {
             return new Client($app);
         };
     }
