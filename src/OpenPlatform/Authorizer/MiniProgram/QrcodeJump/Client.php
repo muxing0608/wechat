@@ -56,7 +56,7 @@ class Client extends BaseClient
      */
     public function get(string $path = null)
     {
-        return $this->httpGet('cgi-bin/wxopen/qrcodejumpget');
+        return $this->httpPostJson('cgi-bin/wxopen/qrcodejumpget', []);
     }
 
     /**
@@ -68,7 +68,7 @@ class Client extends BaseClient
      */
     public function download()
     {
-        return $this->httpPost('cgi-bin/wxopen/qrcodejumpdownload');
+        return $this->httpPostJson('cgi-bin/wxopen/qrcodejumpdownload', []);
     }
 
     /**
