@@ -38,7 +38,7 @@ class Client extends BaseClient
         return $this->httpPostJson('cgi-bin/wxopen/qrcodejumpadd', [
             'prefix'          => $prefix,
             'permit_sub_rule' => $permitSubRule,
-            'path'            => $openVersion,
+            'path'            => $path,
             'open_version'    => $openVersion,
             'debug_url'       => $debugUrl,
             'is_edit'         => $isEdit,
