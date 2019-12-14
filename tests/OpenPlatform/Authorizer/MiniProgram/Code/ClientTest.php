@@ -26,7 +26,7 @@ class ClientTest extends TestCase
             'ext_json' => '{"foo":"bar"}',
             'user_version' => 'v1.0',
             'user_desc' => 'First commit.',
-        ])->andReturn('mock-result')->once();
+        ])->andReturn('mock-result');
         $this->assertSame('mock-result', $client->commit(123, '{"foo":"bar"}', 'v1.0', 'First commit.'));
     }
 
@@ -61,8 +61,8 @@ class ClientTest extends TestCase
     public function testSubmitAudit()
     {
         $client = $this->mockApiClient(Client::class, [], new ServiceContainer(['app_id' => 'app-id']));
-        $client->expects()->httpPostJson('wxa/submit_audit', ['item_list' => ['foo', 'bar']])->andReturn('mock-result');
-        $this->assertSame('mock-result', $client->submitAudit(['foo', 'bar']));
+        $client->expects()->httpPostJson('wxa/submit_audit', ['item_list' => ['foo', 'bar'], 'feedback_info' => 'foo', 'feedback_stuff' => 'foo'])->andReturn('mock-result');
+        $this->assertSame('mock-result', $client->submitAudit(['foo', 'bar'], 'foo', 'foo'));
     }
 
     public function testGetAuditStatus()
@@ -84,6 +84,20 @@ class ClientTest extends TestCase
         $client = $this->mockApiClient(Client::class, [], new ServiceContainer(['app_id' => 'app-id']));
         $client->expects()->httpPostJson('wxa/release')->andReturn('mock-result');
         $this->assertSame('mock-result', $client->release());
+    }
+
+    public function testWithdrawAudit()
+    {
+        $client = $this->mockApiClient(Client::class, [], new ServiceContainer(['app_id' => 'app-id']));
+        $client->expects()->httpGet('wxa/undocodeaudit')->andReturn('mock-result');
+        $this->assertSame('mock-result', $client->withdrawAudit());
+    }
+
+    public function testRollbackRelease()
+    {
+        $client = $this->mockApiClient(Client::class, [], new ServiceContainer(['app_id' => 'app-id']));
+        $client->expects()->httpGet('wxa/revertcoderelease')->andReturn('mock-result');
+        $this->assertSame('mock-result', $client->rollbackRelease());
     }
 
     public function testChangeVisitStatus()

@@ -20,7 +20,7 @@ class ClientTest extends TestCase
     {
         $client = $this->mockApiClient(Client::class);
 
-        $client->expects()->httpGet('wxa/get_merchant_category')->andReturn('mock-result')->once();
+        $client->expects()->httpGet('wxa/get_merchant_category')->andReturn('mock-result');
         $this->assertSame('mock-result', $client->categories());
     }
 
@@ -28,7 +28,7 @@ class ClientTest extends TestCase
     {
         $client = $this->mockApiClient(Client::class);
 
-        $client->expects()->httpGet('wxa/get_district')->andReturn('mock-result')->once();
+        $client->expects()->httpGet('wxa/get_district')->andReturn('mock-result');
         $this->assertSame('mock-result', $client->districts());
     }
 
@@ -39,8 +39,17 @@ class ClientTest extends TestCase
         $client->expects()->httpPostJson('wxa/search_map_poi', [
             'districtid' => 2,
             'keyword' => '北京',
-        ])->andReturn('mock-result')->once();
+        ])->andReturn('mock-result');
         $this->assertSame('mock-result', $client->searchFromMap(2, '北京'));
+    }
+
+    public function testGetStatus()
+    {
+        $client = $this->mockApiClient(Client::class);
+
+        $client->expects()->httpPostJson('wxa/get_merchant_audit_info')->andReturn('mock-result');
+
+        $this->assertSame('mock-result', $client->getStatus());
     }
 
     public function testCreateMerchant()
@@ -49,7 +58,7 @@ class ClientTest extends TestCase
 
         $client->expects()->httpPostJson('wxa/apply_merchant', [
             'foo' => 'bar',
-        ])->andReturn('mock-result')->once();
+        ])->andReturn('mock-result');
         $this->assertSame('mock-result', $client->createMerchant(['foo' => 'bar']));
     }
 
@@ -59,7 +68,7 @@ class ClientTest extends TestCase
 
         $client->expects()->httpPostJson('wxa/modify_merchant', [
             'foo' => 'bar',
-        ])->andReturn('mock-result')->once();
+        ])->andReturn('mock-result');
         $this->assertSame('mock-result', $client->updateMerchant(['foo' => 'bar']));
     }
 
@@ -69,7 +78,7 @@ class ClientTest extends TestCase
 
         $client->expects()->httpPostJson('wxa/create_map_poi', [
             'foo' => 'bar',
-        ])->andReturn('mock-result')->once();
+        ])->andReturn('mock-result');
         $this->assertSame('mock-result', $client->createFromMap(['foo' => 'bar']));
     }
 
@@ -79,7 +88,7 @@ class ClientTest extends TestCase
 
         $client->expects()->httpPostJson('wxa/add_store', [
             'foo' => 'bar',
-        ])->andReturn('mock-result')->once();
+        ])->andReturn('mock-result');
         $this->assertSame('mock-result', $client->create(['foo' => 'bar']));
     }
 
@@ -90,7 +99,7 @@ class ClientTest extends TestCase
         $client->expects()->httpPostJson('wxa/update_store', [
             'foo' => 'bar',
             'poi_id' => 246,
-        ])->andReturn('mock-result')->once();
+        ])->andReturn('mock-result');
         $this->assertSame('mock-result', $client->update(246, ['foo' => 'bar']));
     }
 
@@ -98,7 +107,7 @@ class ClientTest extends TestCase
     {
         $client = $this->mockApiClient(Client::class);
 
-        $client->expects()->httpPostJson('wxa/get_store_info', ['poi_id' => 44])->andReturn('mock-result')->once();
+        $client->expects()->httpPostJson('wxa/get_store_info', ['poi_id' => 44])->andReturn('mock-result');
         $this->assertSame('mock-result', $client->get(44));
     }
 
@@ -109,13 +118,13 @@ class ClientTest extends TestCase
         $client->expects()->httpPostJson('wxa/get_store_list', [
             'offset' => 0,
             'limit' => 10,
-        ])->andReturn('mock-result')->once();
+        ])->andReturn('mock-result');
         $this->assertSame('mock-result', $client->list());
 
         $client->expects()->httpPostJson('wxa/get_store_list', [
             'offset' => 1,
             'limit' => 20,
-        ])->andReturn('mock-result')->once();
+        ])->andReturn('mock-result');
         $this->assertSame('mock-result', $client->list(1, 20));
     }
 
@@ -123,7 +132,7 @@ class ClientTest extends TestCase
     {
         $client = $this->mockApiClient(Client::class);
 
-        $client->expects()->httpPostJson('wxa/del_store', ['poi_id' => 12])->andReturn('mock-result')->once();
+        $client->expects()->httpPostJson('wxa/del_store', ['poi_id' => 12])->andReturn('mock-result');
         $this->assertSame('mock-result', $client->delete(12));
     }
 }
