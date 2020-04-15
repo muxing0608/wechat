@@ -115,4 +115,85 @@ class Client extends BaseClient
 
         return $this->httpPostJson('cgi-bin/externalcontact/transfer', $params);
     }
+
+    /**
+     * 获取企业标签库.
+     *
+     * @see https://work.weixin.qq.com/api/doc/90000/90135/92117
+     *
+     * @param array $tag_id
+     *
+     * @return array|\EasyWeChat\Kernel\Support\Collection|object|\Psr\Http\Message\ResponseInterface|string
+     *
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function tag_list(array $tag_id = [])
+    {
+        $params = [
+            'tag_id' => $tag_id,
+        ];
+
+        return $this->httpPostJson('cgi-bin/externalcontact/get_corp_tag_list', $params);
+    }
+
+    /**
+     * 编辑客户企业标签.
+     *
+     * @see https://work.weixin.qq.com/api/doc/90000/90135/92118
+     *
+     * @param string $userid
+     * @param string $external_userid
+     * @param array $add_tag
+     * @param array $remove_tag
+     *
+     * @return array|\EasyWeChat\Kernel\Support\Collection|object|\Psr\Http\Message\ResponseInterface|string
+     *
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function mark_tag(string $userid, string $external_userid, array $add_tag, array $remove_tag)
+    {
+        $params = [
+            'userid' => $userid,
+            'external_userid' => $external_userid,
+            'add_tag' => $add_tag,
+            'tag_id' => $remove_tag,
+        ];
+
+        return $this->httpPostJson('cgi-bin/externalcontact/mark_tag', $params);
+    }
+
+    /**
+     * 修改客户备注信息.
+     *
+     * @see https://work.weixin.qq.com/api/doc/90000/90135/92118
+     *
+     * @param string $userid
+     * @param string $external_userid
+     * @param string $remark
+     * @param string $description
+     * @param string $remark_company
+     * @param array $remark_mobiles
+     * @param string $remark_pic_mediaid
+     *
+     * @return array|\EasyWeChat\Kernel\Support\Collection|object|\Psr\Http\Message\ResponseInterface|string
+     *
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function remark(string $userid, string $external_userid, string $remark, string $description, string $remark_company, array $remark_mobiles, string $remark_pic_mediaid = '')
+    {
+        $params = [
+            'userid' => $userid,
+            'external_userid' => $external_userid,
+            'remark' => $remark,
+            'description' => $description,
+            'remark_company' => $remark_company,
+            'remark_mobiles' => $remark_mobiles,
+            'remark_pic_mediaid' => $remark_pic_mediaid,
+        ];
+
+        return $this->httpPostJson('cgi-bin/externalcontact/remark', $params);
+    }
 }
