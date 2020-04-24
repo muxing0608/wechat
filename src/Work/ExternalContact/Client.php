@@ -158,7 +158,7 @@ class Client extends BaseClient
             'userid' => $userid,
             'external_userid' => $external_userid,
             'add_tag' => $add_tag,
-            'tag_id' => $remove_tag,
+            'remove_tag' => $remove_tag,
         ];
 
         return $this->httpPostJson('cgi-bin/externalcontact/mark_tag', $params);
