@@ -196,4 +196,51 @@ class Client extends BaseClient
 
         return $this->httpPostJson('cgi-bin/externalcontact/remark', $params);
     }
+
+    /**
+     * 获取客服群列表
+     *
+     * @see https://work.weixin.qq.com/api/doc/90000/90135/92120
+     *
+     * @param int $status_filter
+     * @param array $user_list
+     * @param array $part_list
+     * @param int $offset
+     * @param int $limit
+     * @return array|\EasyWeChat\Kernel\Support\Collection|object|\Psr\Http\Message\ResponseInterface|string
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getGroupChatList(int $status_filter=0,int $offset=0,int $limit=100 ,array $user_list=[],array $part_list=[]){
+        $params = [
+            "status_filter"=>$status_filter,
+            "owner_filter"=>[
+                "userid_list"=> $user_list,
+                "partyid_list"=>$part_list,
+            ],
+            "offset"=>$offset,
+            "limit"=>$limit
+        ];
+
+        return $this->httpPostJson('cgi-bin/externalcontact/groupchat/list', $params);
+    }
+
+
+    /**
+     * 获取客户群详情
+     *
+     * @see https://work.weixin.qq.com/api/doc/90000/90135/92122
+     *
+     * @param string $chatId
+     * @return array|\EasyWeChat\Kernel\Support\Collection|object|\Psr\Http\Message\ResponseInterface|string
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getGroupChatDetail(string $chatId){
+        $params=[
+            'chat_id'=>$chatId,
+        ];
+
+        return $this->httpPostJson('cgi-bin/externalcontact/groupchat/get', $params);
+    }
 }
