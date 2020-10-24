@@ -113,4 +113,24 @@ class Client extends BaseClient
 
         return $this->httpUpload('cgi-bin/media/upload', $files, [], compact('type'));
     }
+
+    /**
+     * 上传图片
+     * 上传图片得到图片URL，该URL永久有效。
+     * 返回的图片URL，仅能用于图文消息（mpnews）正文中的图片展示；若用于非企业微信域名下的页面，图片将被屏蔽。
+     * 每个企业每天最多可上传100张图片。
+     * 图片文件大小应在 5B ~ 2MB 之间。
+     * @link https://open.work.weixin.qq.com/api/doc/90000/90135/90256
+     * @param string $path
+     * @return array|\EasyWeChat\Kernel\Support\Collection|object|\Psr\Http\Message\ResponseInterface|string
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     */
+    public function uploadForeverImage(string $path)
+    {
+        $files = [
+            'media' => $path,
+        ];
+
+        return $this->httpUpload('cgi-bin/media/uploadimg', $files);
+    }
 }
