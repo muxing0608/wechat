@@ -183,6 +183,31 @@ class Client extends BaseClient
     }
 
     /**
+     * 删除企业客户标签.
+     *
+     * @see https://work.weixin.qq.com/api/doc/90000/90135/92117#删除企业客户标签
+     *
+     * @param array $tagId
+     * @param array $groupId
+     *
+     * @return array|\EasyWeChat\Kernel\Support\Collection|object|\Psr\Http\Message\ResponseInterface|string
+     *
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+
+    public function deleteCorpTag(array $tagId, array $groupId)
+    {
+        $params = [
+            "tag_id" => $tagId,
+            "group_id" => $groupId,
+        ];
+
+        return $this->httpPostJson('cgi-bin/externalcontact/del_corp_tag', $params);
+    }
+
+
+    /**
      * 修改客户备注信息.
      *
      * @see https://work.weixin.qq.com/api/doc/90000/90135/92118
